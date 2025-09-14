@@ -1,8 +1,14 @@
 <mat-toolbar class="header" color="primary">
 	<div class="header-content">
-		<div class="logo-section" (click)="navigateHome()">
-			<mat-icon class="logo-icon">sports_soccer</mat-icon>
-			<span class="logo-text">SmartLeague</span>
+		<div class="left-section">
+			<button mat-icon-button (click)="toggleSidebar()" class="menu-toggle" matTooltip="Abrir/Fechar Menu">
+				<mat-icon>{{ sidebarService.isOpen() ? 'menu_open' : 'menu' }}</mat-icon>
+			</button>
+
+			<div class="logo-section" (click)="navigateHome()">
+				<mat-icon class="logo-icon">sports_soccer</mat-icon>
+				<span class="logo-text">SmartLeague</span>
+			</div>
 		</div>
 
 		<div class="header-actions">

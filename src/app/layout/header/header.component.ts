@@ -5,6 +5,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatBadgeModule } from "@angular/material/badge";
 import { Router } from "@angular/router";
 import { NotificationService } from "@core/services/notification.service";
+import { SidebarService } from "@core/services/sidebar.service";
 import { MatTooltip } from "@angular/material/tooltip";
 
 @Component({
@@ -23,6 +24,7 @@ import { MatTooltip } from "@angular/material/tooltip";
 export class HeaderComponent {
   private router = inject(Router);
   notificationService = inject(NotificationService);
+  sidebarService = inject(SidebarService);
 
   navigateHome(): void {
     this.router.navigate(["/dashboard"]);
@@ -30,5 +32,9 @@ export class HeaderComponent {
 
   navigateToNotifications(): void {
     this.router.navigate(["/notifications"]);
+  }
+
+  toggleSidebar(): void {
+    this.sidebarService.toggle();
   }
 }

@@ -3,6 +3,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
+import { SidebarService } from '@core/services/sidebar.service';
 
 export interface MenuItem {
   icon: string;
@@ -20,8 +21,7 @@ export interface MenuItem {
 })
 export class MenuComponent {
   private router = inject(Router);
-  
-  isMobile = window.innerWidth <= 768;
+  sidebarService = inject(SidebarService);
 
   menuItems: MenuItem[] = [
     {
@@ -61,15 +61,12 @@ export class MenuComponent {
     }
   ];
 
-  constructor() {
-    window.addEventListener('resize', () => {
-      this.isMobile = window.innerWidth <= 768;
-    });
-  }
-
   onItemClick(item: MenuItem): void {
-    if (this.isMobile) {
-      // Em dispositivos móveis, fecha o menu após clicar
+    this.router.navigate([item.route]);
+    
+    // Em dispositivos móveis, fecha o menu após clicar
+    if (this.sidebarService.isMobile()) {
+      this.sidebarService.close();
     }
   }
 }
