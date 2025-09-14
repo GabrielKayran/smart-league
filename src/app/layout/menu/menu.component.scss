@@ -1,8 +1,8 @@
 .sidebar {
   position: fixed;
-  top: 64px;
+  top: 57px;
   left: 0;
-  height: calc(100vh - 64px);
+  height: calc(100vh - 57px);
   width: 280px;
   background-color: white;
   border-right: 1px solid #e0e0e0;
@@ -64,10 +64,10 @@
 
 .backdrop {
   position: fixed;
-  top: 64px;
+  top: 57px;
   left: 0;
   width: 100vw;
-  height: calc(100vh - 64px);
+  height: calc(100vh - 57px);
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
   animation: fadeIn 0.3s ease;
@@ -119,12 +119,28 @@
 
 @media (max-width: 480px) {
   .sidebar {
-    width: 260px;
+    width: auto;
+  }
+
+  .nav-label {
+    display: none;
   }
 
   .nav-item {
-    margin: 2px 12px;
+    margin: 2px 8px;
+    width: max-content !important;
     min-height: 44px;
+    justify-content: center;
+    padding: 8px;
+
+    ::ng-deep .mdc-list-item__content {
+      justify-content: center;
+    }
+
+    mat-icon {
+      margin-right: 0 !important;
+      font-size: 24px;
+    }
   }
 
   .nav-list {

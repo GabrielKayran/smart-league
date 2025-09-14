@@ -3,10 +3,10 @@
 
 	<mat-nav-list class="nav-list">
 		@for (item of menuItems; track item.route) {
-		<mat-list-item [routerLink]="item.route" routerLinkActive="active-item" class="nav-item"
-			(click)="onItemClick(item)">
+		<mat-list-item [routerLink]="item.route" routerLinkActive="active-item" class="nav-item" (click)="onItemClick(item)"
+			[matTooltip]="item.label" matTooltipPosition="right" [matTooltipDisabled]="!isSmallScreen()">
 			<mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
-			<span matListItemTitle>{{ item.label }}</span>
+			<span matListItemTitle class="nav-label">{{ item.label }}</span>
 		</mat-list-item>
 		}
 	</mat-nav-list>

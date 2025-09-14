@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, RouterModule } from '@angular/router';
 import { SidebarService } from '@core/services/sidebar.service';
 
@@ -15,7 +16,7 @@ export interface MenuItem {
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [MatSidenavModule, MatListModule, MatIconModule, RouterModule],
+  imports: [MatSidenavModule, MatListModule, MatIconModule, MatTooltipModule, RouterModule],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
 })
@@ -68,5 +69,9 @@ export class MenuComponent {
     if (this.sidebarService.isMobile()) {
       this.sidebarService.close();
     }
+  }
+
+  isSmallScreen(): boolean {
+    return window.innerWidth <= 480;
   }
 }
