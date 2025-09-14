@@ -49,13 +49,18 @@
   color: #1976d2;
   font-size: 16px;
 }
-
-.position-1, .position-2, .position-3, .position-4 {
-  background-color: #4caf50;
-  color: white;
+.basic-position {
+  color: white !important;
   padding: 4px 8px;
   border-radius: 4px;
   font-weight: bold;
+}
+
+.position-1,
+.position-2,
+.position-3,
+.position-4 {
+  background-color: #4caf50;
 }
 
 .position-champions {
@@ -119,13 +124,15 @@
   margin-bottom: 16px;
 }
 
-.scorers-list, .assists-list {
+.scorers-list,
+.assists-list {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.scorer-item, .assist-item {
+.scorer-item,
+.assist-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -139,7 +146,8 @@
   }
 }
 
-.scorer-info, .assist-info {
+.scorer-info,
+.assist-info {
   display: flex;
   align-items: center;
 }
@@ -166,11 +174,13 @@
   color: #666;
 }
 
-.scorer-stats, .assist-stats {
+.scorer-stats,
+.assist-stats {
   text-align: right;
 }
 
-.goals, .assists {
+.goals,
+.assists {
   display: block;
   font-weight: bold;
   color: #1976d2;
@@ -186,18 +196,20 @@
   .ranking-table {
     font-size: 12px;
   }
-  
+
   .form-chips {
     flex-wrap: wrap;
   }
-  
-  .scorer-item, .assist-item {
+
+  .scorer-item,
+  .assist-item {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
   }
-  
-  .scorer-stats, .assist-stats {
+
+  .scorer-stats,
+  .assist-stats {
     text-align: left;
   }
 }

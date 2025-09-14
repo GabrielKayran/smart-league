@@ -1,0 +1,203 @@
+@if (teamReport) {
+  <div class="team-report-container">
+    <div class="header">
+      <button mat-icon-button (click)="goBack()" class="back-button">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <h1>Relatório do Time</h1>
+    </div>
+
+    <mat-card class="team-info-card">
+      <mat-card-content>
+        <div class="team-header">
+          <div class="team-details">
+            <h2>{{ teamReport.team.name }}</h2>
+            <p>{{ teamReport.team.city }} • Fundado em {{ teamReport.team.foundedYear }}</p>
+            <p>{{ teamReport.team.stadium }}</p>
+          </div>
+          <div class="position-badge">
+            <div class="position-circle">
+              <span class="position-value">{{ teamReport.currentPosition }}º</span>
+            </div>
+            <span class="position-label">Posição na Liga</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <div class="stats-grid">
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-item">
+            <mat-icon class="stat-icon points">star</mat-icon>
+            <div class="stat-content">
+              <span class="stat-value">{{ teamReport.team.statistics.points }}</span>
+              <span class="stat-label">Pontos</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-item">
+            <mat-icon class="stat-icon goals">sports_soccer</mat-icon>
+            <div class="stat-content">
+              <span class="stat-value">{{ teamReport.goalScoringAverage.toFixed(1) }}</span>
+              <span class="stat-label">Média de Gols</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-item">
+            <mat-icon class="stat-icon defense">shield</mat-icon>
+            <div class="stat-content">
+              <span class="stat-value">{{ teamReport.defensiveAverage.toFixed(1) }}</span>
+              <span class="stat-label">Média Defensiva</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-item">
+            <mat-icon class="stat-icon wins">emoji_events</mat-icon>
+            <div class="stat-content">
+              <span class="stat-value">{{ teamReport.team.statistics.wins }}</span>
+              <span class="stat-label">Vitórias</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="detailed-sections">
+      <mat-card class="performance-card">
+        <mat-card-header>
+          <mat-card-title>Desempenho Geral</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="performance-stats">
+            <div class="stat-group">
+              <h3>Geral</h3>
+              <div class="stat-row">
+                <span>Partidas:</span>
+                <strong>{{ teamReport.team.statistics.matches }}</strong>
+              </div>
+              <div class="stat-row">
+                <span>Vitórias:</span>
+                <strong class="win">{{ teamReport.team.statistics.wins }}</strong>
+              </div>
+              <div class="stat-row">
+                <span>Empates:</span>
+                <strong class="draw">{{ teamReport.team.statistics.draws }}</strong>
+              </div>
+              <div class="stat-row">
+                <span>Derrotas:</span>
+                <strong class="loss">{{ teamReport.team.statistics.losses }}</strong>
+              </div>
+            </div>
+
+            <div class="stat-group">
+              <h3>Casa</h3>
+              <div class="stat-row">
+                <span>Vitórias:</span>
+                <strong class="win">{{ teamReport.homeRecord.wins }}</strong>
+              </div>
+              <div class="stat-row">
+                <span>Empates:</span>
+                <strong class="draw">{{ teamReport.homeRecord.draws }}</strong>
+              </div>
+              <div class="stat-row">
+                <span>Derrotas:</span>
+                <strong class="loss">{{ teamReport.homeRecord.losses }}</strong>
+              </div>
+            </div>
+
+            <div class="stat-group">
+              <h3>Visitante</h3>
+              <div class="stat-row">
+                <span>Vitórias:</span>
+                <strong class="win">{{ teamReport.awayRecord.wins }}</strong>
+              </div>
+              <div class="stat-row">
+                <span>Empates:</span>
+                <strong class="draw">{{ teamReport.awayRecord.draws }}</strong>
+              </div>
+              <div class="stat-row">
+                <span>Derrotas:</span>
+                <strong class="loss">{{ teamReport.awayRecord.losses }}</strong>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="top-player-card">
+        <mat-card-header>
+          <mat-card-title>Artilheiro do Time</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          @if (teamReport.topScorer) {
+            <div class="top-scorer">
+              <div class="player-info">
+                <h3>{{ teamReport.topScorer.name }}</h3>
+                <p>{{ teamReport.topScorer.position }} • Nº {{ teamReport.topScorer.number }}</p>
+              </div>
+              <div class="scorer-stats">
+                <span class="goals">{{ teamReport.topScorer.statistics.goals }}</span>
+                <span class="label">gols</span>
+              </div>
+            </div>
+          } @else {
+            <p class="no-data">Nenhum gol marcado ainda</p>
+          }
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="form-card">
+        <mat-card-header>
+          <mat-card-title>Últimos Resultados</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          @if (teamReport.recentForm.length > 0) {
+            <div class="form-display">
+              @for (result of teamReport.recentForm; track $index) {
+                <div class="form-result" [class]="getFormClass(result)">
+                  {{ result }}
+                </div>
+              }
+            </div>
+            <div class="form-legend">
+              <span><strong>V</strong> - Vitória</span>
+              <span><strong>E</strong> - Empate</span>
+              <span><strong>D</strong> - Derrota</span>
+            </div>
+          } @else {
+            <p class="no-data">Nenhuma partida disputada ainda</p>
+          }
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="action-buttons">
+      <button mat-raised-button color="primary" (click)="exportReport()">
+        <mat-icon>file_download</mat-icon>
+        Exportar CSV
+      </button>
+      <button mat-raised-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Voltar
+      </button>
+    </div>
+  </div>
+} @else {
+  <div class="loading">
+    <mat-icon>hourglass_empty</mat-icon>
+    <p>Carregando relatório do time...</p>
+  </div>
+}

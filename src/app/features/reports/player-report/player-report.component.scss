@@ -1,0 +1,183 @@
+.player-report-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.header h1 {
+  margin: 0;
+  color: #333;
+}
+
+.player-info-card {
+  margin-bottom: 24px;
+}
+
+.player-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.player-details h2 {
+  margin: 0 0 8px 0;
+  color: #333;
+}
+
+.player-details p {
+  margin: 4px 0;
+  color: #666;
+}
+
+.performance-rating {
+  text-align: center;
+}
+
+.rating-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.rating-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+}
+
+.rating-label {
+  font-size: 12px;
+  color: #666;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  text-align: center;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.stat-icon {
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+  margin-bottom: 8px;
+}
+
+.stat-icon.goals { color: #4caf50; }
+.stat-icon.assists { color: #2196f3; }
+.stat-icon.matches { color: #ff9800; }
+
+.stat-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1976d2;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.stat-detail {
+  font-size: 12px;
+  color: #666;
+}
+
+.detailed-stats-card {
+  margin-bottom: 24px;
+}
+
+.detailed-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 32px;
+}
+
+.stat-group h3 {
+  margin: 0 0 16px 0;
+  color: #333;
+  border-bottom: 2px solid #1976d2;
+  padding-bottom: 8px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  padding: 4px 0;
+}
+
+.yellow { color: #ff9800; }
+.red { color: #f44336; }
+
+.action-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  color: #666;
+}
+
+.loading mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+  .player-header {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .detailed-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
