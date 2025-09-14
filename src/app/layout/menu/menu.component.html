@@ -1,0 +1,18 @@
+<mat-sidenav-container class="sidenav-container">
+	<mat-sidenav mode="side" opened="true" class="sidenav" [class.mobile-closed]="isMobile">
+
+		<mat-nav-list class="nav-list">
+			@for (item of menuItems; track item.route) {
+			<mat-list-item [routerLink]="item.route" routerLinkActive="active-item" class="nav-item"
+				(click)="onItemClick(item)">
+				<mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+				<span matListItemTitle>{{ item.label }}</span>
+			</mat-list-item>
+			}
+		</mat-nav-list>
+	</mat-sidenav>
+
+	<mat-sidenav-content>
+		<ng-content></ng-content>
+	</mat-sidenav-content>
+</mat-sidenav-container>

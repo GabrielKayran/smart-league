@@ -1,0 +1,188 @@
+<div class="ranking-container">
+	<div class="header">
+		<h1>Classificação da Liga</h1>
+		<p>Última atualização: {{ rankingService.standings().lastUpdated | date:'dd/MM/yyyy HH:mm' }}</p>
+	</div>
+
+	<mat-tab-group class="ranking-tabs">
+		<mat-tab label="Classificação Geral">
+			<mat-card class="table-card">
+				<mat-card-content>
+					@if (rankingService.standings().entries.length === 0) {
+					<div class="empty-state">
+						<mat-icon class="empty-icon">leaderboard</mat-icon>
+						<h3>Nenhuma classificação disponível</h3>
+						<p>As classificações serão exibidas após as primeiras partidas</p>
+					</div>
+					} @else {
+					<table mat-table [dataSource]="rankingService.standings().entries" class="ranking-table">
+						<!-- Position Column -->
+						<ng-container matColumnDef="position">
+							<th mat-header-cell *matHeaderCellDef>Pos.</th>
+							<td mat-cell *matCellDef="let entry">
+								<span [class]="getPositionClass(entry.position)">
+									{{ entry.position }}
+								</span>
+							</td>
+						</ng-container>
+
+						<!-- Team Column -->
+						<ng-container matColumnDef="team">
+							<th mat-header-cell *matHeaderCellDef>Time</th>
+							<td mat-cell *matCellDef="let entry">
+								<div class="team-cell">
+									@if (entry.teamLogo) {
+									<img [src]="entry.teamLogo" [alt]="entry.teamName" class="team-logo">
+									}
+									<span class="team-name">{{ entry.teamName }}</span>
+								</div>
+							</td>
+						</ng-container>
+
+						<!-- Points Column -->
+						<ng-container matColumnDef="points">
+							<th mat-header-cell *matHeaderCellDef>Pts</th>
+							<td mat-cell *matCellDef="let entry">
+								<strong class="points">{{ entry.points }}</strong>
+							</td>
+						</ng-container>
+
+						<!-- Matches Column -->
+						<ng-container matColumnDef="matches">
+							<th mat-header-cell *matHeaderCellDef>J</th>
+							<td mat-cell *matCellDef="let entry">{{ entry.matches }}</td>
+						</ng-container>
+
+						<!-- Wins Column -->
+						<ng-container matColumnDef="wins">
+							<th mat-header-cell *matHeaderCellDef>V</th>
+							<td mat-cell *matCellDef="let entry">{{ entry.wins }}</td>
+						</ng-container>
+
+						<!-- Draws Column -->
+						<ng-container matColumnDef="draws">
+							<th mat-header-cell *matHeaderCellDef>E</th>
+							<td mat-cell *matCellDef="let entry">{{ entry.draws }}</td>
+						</ng-container>
+
+						<!-- Losses Column -->
+						<ng-container matColumnDef="losses">
+							<th mat-header-cell *matHeaderCellDef>D</th>
+							<td mat-cell *matCellDef="let entry">{{ entry.losses }}</td>
+						</ng-container>
+
+						<!-- Goals For Column -->
+						<ng-container matColumnDef="goalsFor">
+							<th mat-header-cell *matHeaderCellDef>GP</th>
+							<td mat-cell *matCellDef="let entry">{{ entry.goalsFor }}</td>
+						</ng-container>
+
+						<!-- Goals Against Column -->
+						<ng-container matColumnDef="goalsAgainst">
+							<th mat-header-cell *matHeaderCellDef>GC</th>
+							<td mat-cell *matCellDef="let entry">{{ entry.goalsAgainst }}</td>
+						</ng-container>
+
+						<!-- Goal Difference Column -->
+						<ng-container matColumnDef="goalDifference">
+							<th mat-header-cell *matHeaderCellDef>SG</th>
+							<td mat-cell *matCellDef="let entry">
+								<span [class]="getGoalDifferenceClass(entry.goalDifference)">
+									{{ entry.goalDifference > 0 ? '+' : '' }}{{ entry.goalDifference }}
+								</span>
+							</td>
+						</ng-container>
+
+						<!-- Form Column -->
+						<ng-container matColumnDef="form">
+							<th mat-header-cell *matHeaderCellDef>Últimos 5</th>
+							<td mat-cell *matCellDef="let entry">
+								<div class="form-chips">
+									@for (result of entry.form; track $index) {
+									<mat-chip [class]="getFormChipClass(result.result)">
+										{{ result.result }}
+									</mat-chip>
+									}
+								</div>
+							</td>
+						</ng-container>
+
+						<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+						<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+					</table>
+					}
+				</mat-card-content>
+			</mat-card>
+		</mat-tab>
+
+		<mat-tab label="Artilheiros">
+			<mat-card class="scorers-card">
+				<mat-card-header>
+					<mat-card-title>Top Artilheiros</mat-card-title>
+				</mat-card-header>
+				<mat-card-content>
+					@if (rankingService.topScorers().length === 0) {
+					<div class="empty-state">
+						<mat-icon class="empty-icon">sports_soccer</mat-icon>
+						<h3>Nenhum artilheiro ainda</h3>
+						<p>Os gols serão contabilizados após as partidas</p>
+					</div>
+					} @else {
+					<div class="scorers-list">
+						@for (scorer of rankingService.topScorers(); track scorer.playerId) {
+						<div class="scorer-item">
+							<div class="scorer-info">
+								<span class="position">#{{ $index + 1 }}</span>
+								<div class="player-details">
+									<strong class="player-name">{{ scorer.playerName }}</strong>
+									<span class="team-name">{{ scorer.teamName }}</span>
+								</div>
+							</div>
+							<div class="scorer-stats">
+								<span class="goals">{{ scorer.goals }} gols</span>
+								<span class="matches">{{ scorer.matches }} jogos</span>
+							</div>
+						</div>
+						}
+					</div>
+					}
+				</mat-card-content>
+			</mat-card>
+		</mat-tab>
+
+		<mat-tab label="Assistências">
+			<mat-card class="assists-card">
+				<mat-card-header>
+					<mat-card-title>Top Assistências</mat-card-title>
+				</mat-card-header>
+				<mat-card-content>
+					@if (rankingService.topAssists().length === 0) {
+					<div class="empty-state">
+						<mat-icon class="empty-icon">assist</mat-icon>
+						<h3>Nenhuma assistência ainda</h3>
+						<p>As assistências serão contabilizadas após as partidas</p>
+					</div>
+					} @else {
+					<div class="assists-list">
+						@for (assist of rankingService.topAssists(); track assist.playerId) {
+						<div class="assist-item">
+							<div class="assist-info">
+								<span class="position">#{{ $index + 1 }}</span>
+								<div class="player-details">
+									<strong class="player-name">{{ assist.playerName }}</strong>
+									<span class="team-name">{{ assist.teamName }}</span>
+								</div>
+							</div>
+							<div class="assist-stats">
+								<span class="assists">{{ assist.assists }} assistências</span>
+								<span class="matches">{{ assist.matches }} jogos</span>
+							</div>
+						</div>
+						}
+					</div>
+					}
+				</mat-card-content>
+			</mat-card>
+		</mat-tab>
+	</mat-tab-group>
+</div>

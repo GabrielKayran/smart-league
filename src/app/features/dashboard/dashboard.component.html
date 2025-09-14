@@ -1,0 +1,125 @@
+<div class="dashboard">
+	<div class="dashboard-header">
+		<h1>Dashboard SmartLeague</h1>
+		<p>Visão geral do sistema</p>
+	</div>
+
+	<div class="stats-grid">
+		<mat-card class="stat-card">
+			<mat-card-header>
+				<mat-icon mat-card-avatar class="icon teams">groups</mat-icon>
+				<mat-card-title>{{ teamService.teamCount() }}</mat-card-title>
+				<mat-card-subtitle>Times Cadastrados</mat-card-subtitle>
+			</mat-card-header>
+			<mat-card-actions>
+				<button mat-button routerLink="/teams" color="primary">
+					Ver Times
+				</button>
+			</mat-card-actions>
+		</mat-card>
+
+		<mat-card class="stat-card">
+			<mat-card-header>
+				<mat-icon mat-card-avatar class="icon players">person</mat-icon>
+				<mat-card-title>{{ teamService.playerCount() }}</mat-card-title>
+				<mat-card-subtitle>Jogadores Cadastrados</mat-card-subtitle>
+			</mat-card-header>
+			<mat-card-actions>
+				<button mat-button routerLink="/players" color="primary">
+					Ver Jogadores
+				</button>
+			</mat-card-actions>
+		</mat-card>
+
+		<mat-card class="stat-card">
+			<mat-card-header>
+				<mat-icon mat-card-avatar class="icon matches">sports_soccer</mat-icon>
+				<mat-card-title>{{ matchService.matches().length }}</mat-card-title>
+				<mat-card-subtitle>Partidas</mat-card-subtitle>
+			</mat-card-header>
+			<mat-card-actions>
+				<button mat-button routerLink="/matches" color="primary">
+					Ver Partidas
+				</button>
+			</mat-card-actions>
+		</mat-card>
+
+		<mat-card class="stat-card">
+			<mat-card-header>
+				<mat-icon mat-card-avatar class="icon notifications">notifications</mat-icon>
+				<mat-card-title>{{ notificationService.unreadCount() }}</mat-card-title>
+				<mat-card-subtitle>Notificações Não Lidas</mat-card-subtitle>
+			</mat-card-header>
+			<mat-card-actions>
+				<button mat-button routerLink="/notifications" color="primary">
+					Ver Notificações
+				</button>
+			</mat-card-actions>
+		</mat-card>
+	</div>
+
+	<div class="content-grid">
+		<mat-card class="live-matches-card">
+			<mat-card-header>
+				<mat-card-title>Partidas ao Vivo</mat-card-title>
+				<mat-card-subtitle>{{ matchService.liveMatches().length }} partida(s) em andamento</mat-card-subtitle>
+			</mat-card-header>
+			<mat-card-content>
+				@if (matchService.liveMatches().length === 0) {
+				<p class="no-data">Nenhuma partida ao vivo no momento</p>
+				} @else {
+				@for (match of matchService.liveMatches(); track match.id) {
+				<div class="live-match">
+					<span class="teams">{{ getTeamName(match.homeTeam) }} vs {{ getTeamName(match.awayTeam) }}</span>
+					<span class="score">{{ match.homeScore }} - {{ match.awayScore }}</span>
+				</div>
+				}
+				}
+			</mat-card-content>
+			<mat-card-actions>
+				<button mat-button routerLink="/matches" color="primary">
+					Ver Todas as Partidas
+				</button>
+			</mat-card-actions>
+		</mat-card>
+
+		<mat-card class="ranking-card">
+			<mat-card-header>
+				<mat-card-title>Classificação</mat-card-title>
+				<mat-card-subtitle>Top 5 Times</mat-card-subtitle>
+			</mat-card-header>
+			<mat-card-content>
+				@for (entry of rankingService.standings().entries.slice(0, 5); track entry.teamId) {
+				<div class="ranking-item">
+					<span class="position">{{ entry.position }}º</span>
+					<span class="team-name">{{ entry.teamName }}</span>
+					<span class="points">{{ entry.points }} pts</span>
+				</div>
+				}
+			</mat-card-content>
+			<mat-card-actions>
+				<button mat-button routerLink="/ranking" color="primary">
+					Ver Classificação Completa
+				</button>
+			</mat-card-actions>
+		</mat-card>
+	</div>
+
+	<div class="quick-actions">
+		<h2>Ações Rápidas</h2>
+		<div class="action-buttons">
+			<button mat-raised-button color="primary" routerLink="/teams/create">
+				<mat-icon>add</mat-icon>
+				Criar Time
+			</button>
+			<button mat-raised-button color="accent" routerLink="/players/create">
+				<mat-icon>person_add</mat-icon>
+				Adicionar Jogador
+			</button>
+			<button mat-raised-button color="warn" routerLink="/matches/create">
+				<mat-icon>sports_soccer</mat-icon>
+				Agendar Partida
+			</button>
+		</div>
+	</div>
+</div>

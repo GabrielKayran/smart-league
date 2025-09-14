@@ -1,0 +1,88 @@
+<div class="team-form-container">
+	<mat-card class="form-card">
+		<mat-card-header>
+			<mat-card-title>
+				<mat-icon>groups</mat-icon>
+				Cadastrar Novo Time
+			</mat-card-title>
+			<mat-card-subtitle>
+				Preencha as informações do time
+			</mat-card-subtitle>
+		</mat-card-header>
+
+		<mat-card-content>
+			<form [formGroup]="teamForm" (ngSubmit)="onSubmit()" class="team-form">
+				<div class="form-row">
+					<mat-form-field appearance="outline">
+						<mat-label>Nome do Time</mat-label>
+						<input matInput formControlName="name" placeholder="Ex: Flamengo" required>
+						@if (teamForm.get('name')?.hasError('required') && teamForm.get('name')?.touched) {
+						<mat-error>Nome do time é obrigatório</mat-error>
+						}
+					</mat-form-field>
+
+					<mat-form-field appearance="outline">
+						<mat-label>Ano de Fundação</mat-label>
+						<input matInput type="number" formControlName="foundedYear" placeholder="Ex: 1895" required>
+						@if (teamForm.get('foundedYear')?.hasError('required') && teamForm.get('foundedYear')?.touched) {
+						<mat-error>Ano de fundação é obrigatório</mat-error>
+						}
+						@if (teamForm.get('foundedYear')?.hasError('min') && teamForm.get('foundedYear')?.touched) {
+						<mat-error>Ano deve ser maior que 1850</mat-error>
+						}
+						@if (teamForm.get('foundedYear')?.hasError('max') && teamForm.get('foundedYear')?.touched) {
+						<mat-error>Ano não pode ser futuro</mat-error>
+						}
+					</mat-form-field>
+				</div>
+
+				<div class="form-row">
+					<mat-form-field appearance="outline">
+						<mat-label>Estádio</mat-label>
+						<input matInput formControlName="stadium" placeholder="Ex: Maracanã" required>
+						@if (teamForm.get('stadium')?.hasError('required') && teamForm.get('stadium')?.touched) {
+						<mat-error>Nome do estádio é obrigatório</mat-error>
+						}
+					</mat-form-field>
+
+					<mat-form-field appearance="outline">
+						<mat-label>Cidade</mat-label>
+						<input matInput formControlName="city" placeholder="Ex: Rio de Janeiro" required>
+						@if (teamForm.get('city')?.hasError('required') && teamForm.get('city')?.touched) {
+						<mat-error>Cidade é obrigatória</mat-error>
+						}
+					</mat-form-field>
+				</div>
+
+				<mat-form-field appearance="outline" class="full-width">
+					<mat-label>Logo do Time (URL)</mat-label>
+					<input matInput formControlName="logo" placeholder="https://exemplo.com/logo.png" type="url">
+					<mat-icon matSuffix>image</mat-icon>
+					@if (teamForm.get('logo')?.hasError('pattern') && teamForm.get('logo')?.touched) {
+					<mat-error>URL inválida</mat-error>
+					}
+				</mat-form-field>
+			</form>
+		</mat-card-content>
+
+		<mat-card-actions align="end">
+			<button mat-button type="button" (click)="onCancel()">
+				Cancelar
+			</button>
+			<button mat-raised-button color="primary" type="submit" (click)="onSubmit()"
+				[disabled]="teamForm.invalid || isSubmitting">
+				@if (isSubmitting) {
+				<ng-container>
+					<mat-icon>hourglass_empty</mat-icon>
+					Salvando...
+				</ng-container>
+				} @else {
+				<ng-container>
+					<mat-icon>save</mat-icon>
+					Salvar Time
+				</ng-container>
+				}
+			</button>
+		</mat-card-actions>
+	</mat-card>
+</div>

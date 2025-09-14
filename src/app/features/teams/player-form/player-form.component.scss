@@ -1,0 +1,42 @@
+.player-form-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.form-card {
+  margin-bottom: 24px;
+}
+
+.player-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+mat-card-header {
+  mat-icon {
+    margin-right: 8px;
+  }
+}
+
+mat-card-actions {
+  button {
+    margin-left: 8px;
+
+    mat-icon {
+      margin-right: 8px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
