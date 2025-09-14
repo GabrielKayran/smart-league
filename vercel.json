@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "name": "smart-league",
   "builds": [
     {
       "src": "package.json",
@@ -11,6 +10,12 @@
     }
   ],
   "routes": [
+    {
+      "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|json|txt|xml))",
+      "headers": {
+        "cache-control": "public, max-age=31536000, immutable"
+      }
+    },
     {
       "src": "/(.*)",
       "dest": "/index.html"
