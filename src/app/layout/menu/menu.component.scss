@@ -8,7 +8,7 @@
   border-right: 1px solid #e0e0e0;
   box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
   transform: translateX(-100%);
-  transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 999;
   overflow-y: auto;
 
@@ -22,11 +22,13 @@
 }
 
 .nav-list {
-  padding: 16px 0;
+  padding: 1rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .nav-item {
-  margin: 4px 16px;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -88,10 +90,11 @@
     height: 100%;
     transform: none;
     box-shadow: none;
-    transition: width 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     &.sidebar-open {
       width: 280px;
+      overflow-x: hidden;
     }
 
     &:not(.sidebar-open) {
@@ -114,7 +117,6 @@
   }
 }
 
-// Tablets pequenos
 @media (max-width: 480px) {
   .sidebar {
     width: 260px;
@@ -126,6 +128,6 @@
   }
 
   .nav-list {
-    padding: 12px 0;
+    padding: 12px 0.3rem;
   }
 }

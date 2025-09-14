@@ -1,0 +1,112 @@
+@if (match) {
+<div class="match-detail-container">
+	<div class="match-header">
+		<button mat-icon-button (click)="goBack()" class="back-button">
+			<mat-icon>arrow_back</mat-icon>
+		</button>
+
+		<div class="match-info">
+			<h1>Detalhes da Partida</h1>
+			<mat-chip [class]="getStatusChipClass()">
+				{{ match.status }}
+			</mat-chip>
+		</div>
+	</div>
+
+	<mat-card class="match-card">
+		<mat-card-content>
+			<div class="match-teams">
+				<div class="team home">
+					<h2>{{ getTeamName(match.homeTeam) }}</h2>
+					<div class="team-label">Casa</div>
+					@if (match.status !== 'Agendada') {
+					<div class="score">{{ match.homeScore }}</div>
+					}
+				</div>
+
+				<div class="vs-section">
+					<div class="vs">VS</div>
+					<div class="match-info-details">
+						<div class="date">{{ match.date | date:'dd/MM/yyyy' }}</div>
+						<div class="time">{{ match.date | date:'HH:mm' }}</div>
+					</div>
+				</div>
+
+				<div class="team away">
+					<h2>{{ getTeamName(match.awayTeam) }}</h2>
+					<div class="team-label">Visitante</div>
+					@if (match.status !== 'Agendada') {
+					<div class="score">{{ match.awayScore }}</div>
+					}
+				</div>
+			</div>
+
+			<div class="match-details">
+				<div class="detail-item">
+					<mat-icon>location_on</mat-icon>
+					<span>{{ match.stadium }}</span>
+				</div>
+				<div class="detail-item">
+					<mat-icon>schedule</mat-icon>
+					<span>{{ match.date | date:'EEEE, dd MMMM yyyy \'às\' HH:mm' }}</span>
+				</div>
+			</div>
+		</mat-card-content>
+	</mat-card>
+
+	@if (match.events && match.events.length > 0) {
+	<mat-card class="events-card">
+		<mat-card-header>
+			<mat-card-title>Eventos da Partida</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			<div class="events-timeline">
+				@for (event of match.events; track event.id) {
+				<div class="event-item" [class]="getEventTypeClass(event.type)">
+					<div class="event-time">{{ event.minute }}'</div>
+					<div class="event-icon">
+						<mat-icon>{{ getEventIcon(event.type) }}</mat-icon>
+					</div>
+					<div class="event-details">
+						<div class="event-player">{{ event.playerName }}</div>
+						<div class="event-description">{{ getEventDescription(event) }}</div>
+					</div>
+				</div>
+				}
+			</div>
+		</mat-card-content>
+	</mat-card>
+	}
+
+	<div class="actions">
+		@if (match.status === 'Agendada') {
+		<button mat-raised-button color="primary" (click)="startMatch()">
+			<mat-icon>play_arrow</mat-icon>
+			Iniciar Partida
+		</button>
+		}
+
+		@if (match.status === 'Ao Vivo') {
+		<button mat-raised-button color="accent" (click)="addEvent()">
+			<mat-icon>add</mat-icon>
+			Adicionar Evento
+		</button>
+
+		<button mat-raised-button color="warn" (click)="endMatch()">
+			<mat-icon>stop</mat-icon>
+			Finalizar Partida
+		</button>
+		}
+
+		<button mat-stroked-button (click)="editMatch()">
+			<mat-icon>edit</mat-icon>
+			Editar Partida
+		</button>
+	</div>
+</div>
+} @else {
+<div class="loading-container">
+	<mat-icon class="loading-icon">hourglass_empty</mat-icon>
+	<p>Carregando detalhes da partida...</p>
+</div>
+}

@@ -13,11 +13,11 @@ export interface Match {
 }
 
 export enum MatchStatus {
-  SCHEDULED = 'Agendada',
-  LIVE = 'Ao Vivo',
-  FINISHED = 'Finalizada',
-  POSTPONED = 'Adiada',
-  CANCELLED = 'Cancelada'
+  SCHEDULED = "Agendada",
+  LIVE = "Ao Vivo",
+  FINISHED = "Finalizada",
+  POSTPONED = "Adiada",
+  CANCELLED = "Cancelada",
 }
 
 export interface MatchEvent {
@@ -25,6 +25,7 @@ export interface MatchEvent {
   matchId: string;
   type: EventType;
   playerId: string;
+  assistPlayerId?: string;
   playerName: string;
   teamId: string;
   minute: number;
@@ -33,11 +34,11 @@ export interface MatchEvent {
 }
 
 export enum EventType {
-  GOAL = 'Gol',
-  YELLOW_CARD = 'Cartão Amarelo',
-  RED_CARD = 'Cartão Vermelho',
-  SUBSTITUTION = 'Substituição',
-  OWN_GOAL = 'Gol Contra'
+  GOAL = "Gol",
+  YELLOW_CARD = "Cartão Amarelo",
+  RED_CARD = "Cartão Vermelho",
+  SUBSTITUTION = "Substituição",
+  OWN_GOAL = "Gol Contra",
 }
 
 export interface MatchResult {

@@ -1,25 +1,34 @@
 <mat-toolbar class="header" color="primary">
-	<div class="header-content">
-		<div class="left-section">
-			<button mat-icon-button (click)="toggleSidebar()" class="menu-toggle" matTooltip="Abrir/Fechar Menu">
-				<mat-icon>{{ sidebarService.isOpen() ? 'menu_open' : 'menu' }}</mat-icon>
-			</button>
+  <div class="header-content">
+    <div class="left-section">
+      <button
+        mat-icon-button
+        (click)="toggleSidebar()"
+        class="menu-toggle"
+        matTooltip="Abrir/Fechar Menu"
+      >
+        <mat-icon>{{
+          sidebarService.isOpen() ? "menu_open" : "menu"
+        }}</mat-icon>
+      </button>
 
-			<div class="logo-section" (click)="navigateHome()">
-				<mat-icon class="logo-icon">sports_soccer</mat-icon>
-				<span class="logo-text">SmartLeague</span>
-			</div>
-		</div>
+      <div class="logo-section" (click)="navigateHome()">
+        <mat-icon class="logo-icon">sports_soccer</mat-icon>
+        <span class="logo-text">SmartLeague</span>
+      </div>
+    </div>
 
-		<div class="header-actions">
-			<button mat-icon-button (click)="navigateToNotifications()" [matBadge]="notificationService.unreadCount()"
-				[matBadgeHidden]="notificationService.unreadCount() === 0" matBadgeColor="warn" matTooltip="Notificações">
-				<mat-icon>notifications</mat-icon>
-			</button>
-
-			<button mat-icon-button matTooltip="Configurações">
-				<mat-icon>settings</mat-icon>
-			</button>
-		</div>
-	</div>
+    <div class="header-actions">
+      <button
+        mat-icon-button
+        (click)="navigateToNotifications()"
+        [matBadge]="notificationService.unreadCount()"
+        [matBadgeHidden]="notificationService.unreadCount() === 0"
+        matBadgeColor="warn"
+        matTooltip="Notificações"
+      >
+        <mat-icon>notifications</mat-icon>
+      </button>
+    </div>
+  </div>
 </mat-toolbar>

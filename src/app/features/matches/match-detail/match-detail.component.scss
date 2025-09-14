@@ -1,0 +1,270 @@
+.match-detail-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.match-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+  
+  .back-button {
+    margin-right: 16px;
+  }
+  
+  .match-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    
+    h1 {
+      margin: 0;
+      color: #333;
+    }
+  }
+}
+
+.match-card {
+  margin-bottom: 24px;
+}
+
+.match-teams {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 32px;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 24px;
+  
+  .team {
+    h2 {
+      font-size: 24px;
+      margin: 0 0 8px 0;
+      color: #333;
+    }
+    
+    .team-label {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 16px;
+    }
+    
+    .score {
+      font-size: 48px;
+      font-weight: bold;
+      color: #1976d2;
+    }
+    
+    &.home {
+      text-align: right;
+    }
+    
+    &.away {
+      text-align: left;
+    }
+  }
+  
+  .vs-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    .vs {
+      font-size: 20px;
+      font-weight: bold;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    
+    .match-info-details {
+      text-align: center;
+      
+      .date {
+        font-weight: 500;
+        color: #333;
+      }
+      
+      .time {
+        font-size: 14px;
+        color: #666;
+      }
+    }
+  }
+}
+
+.match-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  
+  .detail-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    
+    mat-icon {
+      color: #666;
+    }
+    
+    span {
+      color: #333;
+    }
+  }
+}
+
+.events-card {
+  margin-bottom: 24px;
+}
+
+.events-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.event-item {
+  display: grid;
+  grid-template-columns: 60px 40px 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 4px solid #e0e0e0;
+  
+  &.goal {
+    border-left-color: #4caf50;
+    background-color: rgba(76, 175, 80, 0.1);
+  }
+  
+  &.yellow-card {
+    border-left-color: #ff9800;
+    background-color: rgba(255, 152, 0, 0.1);
+  }
+  
+  &.red-card {
+    border-left-color: #f44336;
+    background-color: rgba(244, 67, 54, 0.1);
+  }
+  
+  &.substitution {
+    border-left-color: #2196f3;
+    background-color: rgba(33, 150, 243, 0.1);
+  }
+  
+  .event-time {
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+  }
+  
+  .event-icon {
+    display: flex;
+    justify-content: center;
+    
+    mat-icon {
+      color: inherit;
+    }
+  }
+  
+  .event-details {
+    .event-player {
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 4px;
+    }
+    
+    .event-description {
+      font-size: 14px;
+      color: #666;
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  
+  button {
+    mat-icon {
+      margin-right: 8px;
+    }
+  }
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  
+  .loading-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    color: #ccc;
+    margin-bottom: 16px;
+  }
+  
+  p {
+    color: #666;
+    font-size: 16px;
+  }
+}
+
+.chip-scheduled {
+  background-color: #e3f2fd !important;
+  color: #1976d2 !important;
+}
+
+.chip-in-progress {
+  background-color: #fff3e0 !important;
+  color: #f57c00 !important;
+}
+
+.chip-finished {
+  background-color: #e8f5e8 !important;
+  color: #388e3c !important;
+}
+
+.chip-cancelled {
+  background-color: #ffebee !important;
+  color: #d32f2f !important;
+}
+
+@media (max-width: 768px) {
+  .match-teams {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    
+    .team {
+      &.home, &.away {
+        text-align: center;
+      }
+      
+      .score {
+        font-size: 36px;
+      }
+    }
+    
+    .vs-section {
+      order: -1;
+    }
+  }
+  
+  .event-item {
+    grid-template-columns: 50px 30px 1fr;
+    gap: 12px;
+  }
+  
+  .actions {
+    justify-content: stretch;
+    
+    button {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+}

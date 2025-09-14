@@ -1,0 +1,200 @@
+@if (team) {
+<div class="team-detail-container">
+	<div class="team-header">
+		<button mat-icon-button (click)="goBack()" class="back-button">
+			<mat-icon>arrow_back</mat-icon>
+		</button>
+
+		<div class="team-info">
+			<div class="team-logo">
+				@if (team.logo) {
+				<img [src]="team.logo" [alt]="team.name" class="logo-image">
+				} @else {
+				<mat-icon class="default-logo">groups</mat-icon>
+				}
+			</div>
+
+			<div class="team-details">
+				<h1>{{ team.name }}</h1>
+				<div class="team-meta">
+					<div class="meta-item">
+						<mat-icon>calendar_today</mat-icon>
+						<span>Fundado em {{ team.foundedYear }}</span>
+					</div>
+					<div class="meta-item">
+						<mat-icon>stadium</mat-icon>
+						<span>{{ team.stadium }}</span>
+					</div>
+					<div class="meta-item">
+						<mat-icon>location_city</mat-icon>
+						<span>{{ team.city }}</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="team-actions">
+				<button mat-raised-button color="primary" [routerLink]="['/teams', 'edit', team.id]">
+					<mat-icon>edit</mat-icon>
+					Editar Time
+				</button>
+				<button mat-raised-button color="accent" [routerLink]="['/players', 'create']"
+					[queryParams]="{teamId: team.id}">
+					<mat-icon>person_add</mat-icon>
+					Adicionar Jogador
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<mat-tab-group class="team-tabs">
+		<mat-tab label="Elenco">
+			<div class="tab-content">
+				@if (teamPlayers.length === 0) {
+				<mat-card class="empty-state">
+					<mat-card-content>
+						<mat-icon class="empty-icon">group</mat-icon>
+						<h3>Nenhum jogador cadastrado</h3>
+						<p>Adicione jogadores ao elenco deste time</p>
+						<button mat-raised-button color="primary" [routerLink]="['/players', 'create']"
+							[queryParams]="{teamId: team.id}">
+							Adicionar Primeiro Jogador
+						</button>
+					</mat-card-content>
+				</mat-card>
+				} @else {
+				<div class="players-grid">
+					@for (player of teamPlayers; track player.id) {
+					<mat-card class="player-card">
+						<mat-card-header>
+							<div mat-card-avatar class="player-avatar">
+								@if (player.photo) {
+								<img [src]="player.photo" [alt]="player.name">
+								} @else {
+								<mat-icon>person</mat-icon>
+								}
+							</div>
+							<mat-card-title>{{ player.name }}</mat-card-title>
+							<mat-card-subtitle>{{ player.position }} - #{{ player.number }}</mat-card-subtitle>
+						</mat-card-header>
+
+						<mat-card-content>
+							<div class="player-stats">
+								<div class="stat">
+									<span class="label">Idade:</span>
+									<span class="value">{{ player.age }} anos</span>
+								</div>
+								<div class="stat">
+									<span class="label">Gols:</span>
+									<span class="value">{{ player.statistics.goals || 0 }}</span>
+								</div>
+								<div class="stat">
+									<span class="label">Assistências:</span>
+									<span class="value">{{ player.statistics.assists || 0 }}</span>
+								</div>
+							</div>
+						</mat-card-content>
+
+						<mat-card-actions>
+							<button mat-button color="primary" [routerLink]="['/players', player.id]">
+								Ver Detalhes
+							</button>
+							<button mat-button [routerLink]="['/players', 'edit', player.id]">
+								Editar
+							</button>
+						</mat-card-actions>
+					</mat-card>
+					}
+				</div>
+				}
+			</div>
+		</mat-tab>
+
+		<mat-tab label="Estatísticas">
+			<div class="tab-content">
+				<div class="stats-grid">
+					<mat-card class="stat-card">
+						<mat-card-content>
+							<div class="stat-header">
+								<mat-icon>group</mat-icon>
+								<h3>Jogadores</h3>
+							</div>
+							<div class="stat-value">{{ teamPlayers.length }}</div>
+						</mat-card-content>
+					</mat-card>
+
+					<mat-card class="stat-card">
+						<mat-card-content>
+							<div class="stat-header">
+								<mat-icon>sports_soccer</mat-icon>
+								<h3>Gols Marcados</h3>
+							</div>
+							<div class="stat-value">{{ getTotalGoals() }}</div>
+						</mat-card-content>
+					</mat-card>
+
+					<mat-card class="stat-card">
+						<mat-card-content>
+							<div class="stat-header">
+								<mat-icon>assist</mat-icon>
+								<h3>Assistências</h3>
+							</div>
+							<div class="stat-value">{{ getTotalAssists() }}</div>
+						</mat-card-content>
+					</mat-card>
+
+					<mat-card class="stat-card">
+						<mat-card-content>
+							<div class="stat-header">
+								<mat-icon>schedule</mat-icon>
+								<h3>Idade Média</h3>
+							</div>
+							<div class="stat-value">{{ getAverageAge() | number:'1.1-1' }}</div>
+						</mat-card-content>
+					</mat-card>
+				</div>
+			</div>
+		</mat-tab>
+
+		<mat-tab label="Histórico">
+			<div class="tab-content">
+				<mat-card>
+					<mat-card-header>
+						<mat-card-title>Últimas Partidas</mat-card-title>
+					</mat-card-header>
+					<mat-card-content>
+						@if (teamMatches.length === 0) {
+						<div class="empty-state-simple">
+							<mat-icon>sports_soccer</mat-icon>
+							<p>Nenhuma partida encontrada</p>
+						</div>
+						} @else {
+						<div class="matches-list">
+							@for (match of teamMatches; track match.id) {
+							<div class="match-item">
+								<div class="match-date">
+									{{ match.date | date:'dd/MM' }}
+								</div>
+								<div class="match-teams">
+									<span>{{ getTeamName(match.homeTeam) }}</span>
+									<span class="score">{{ match.homeScore || 0 }} - {{ match.awayScore || 0 }}</span>
+									<span>{{ getTeamName(match.awayTeam) }}</span>
+								</div>
+								<div class="match-status">
+									{{ match.status }}
+								</div>
+							</div>
+							}
+						</div>
+						}
+					</mat-card-content>
+				</mat-card>
+			</div>
+		</mat-tab>
+	</mat-tab-group>
+</div>
+} @else {
+<div class="loading-container">
+	<mat-icon class="loading-icon">hourglass_empty</mat-icon>
+	<p>Carregando informações do time...</p>
+</div>
+}

@@ -191,3 +191,13 @@ body {
 .mat-badge-content {
   z-index: 100 !important;
 }
+.mat-icon,
+.mat-mdc-card-avatar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.mat-mdc-tab-body-content {
+  padding: 1rem !important;
+}
