@@ -201,3 +201,9 @@ body {
 .mat-mdc-tab-body-content {
   padding: 1rem !important;
 }
+
+.text-overflow-card {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
